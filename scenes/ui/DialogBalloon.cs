@@ -20,7 +20,6 @@ public partial class DialogBalloon : CanvasLayer
   [Export] private AudioStream defaultTalkSound;
 
   private Portrait portrait;
-
   private Resource resource;
   private Array<Variant> temporaryGameStates = new Array<Variant>();
   private bool isWaitingForInput = false;
