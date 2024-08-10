@@ -1,6 +1,4 @@
-﻿namespace SunfallGame.Code;
-
-public static class InputActionNames
+﻿public static class InputActionNames
 {
     public const string INTERACTION = "interaction";
     public const string LANTERN = "lantern";

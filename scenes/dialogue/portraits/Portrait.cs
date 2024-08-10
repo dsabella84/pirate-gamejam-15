@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace SunfallGame.scenes.dialogue.portraits;
-
 public partial class Portrait : Control
 {
     private List<PortraitSprite> sprites = new List<PortraitSprite>();

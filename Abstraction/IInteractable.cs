@@ -1,7 +1,5 @@
 ﻿using Godot;
 
-namespace SunfallGame.Abstraction;
-
 /// <summary>
 /// Interface specifying that the object can be interacted with (by player or by other entities).
 /// </summary>

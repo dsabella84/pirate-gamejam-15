@@ -1,7 +1,4 @@
 ﻿using System;
-using SunfallGame.scenes.characters.player;
-
-namespace SunfallGame.Code;
 
 public static class Game
 {

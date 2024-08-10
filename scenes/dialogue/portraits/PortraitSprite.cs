@@ -1,7 +1,5 @@
 using Godot;
 
-namespace SunfallGame.scenes.dialogue.portraits;
-
 public partial class PortraitSprite : Sprite2D
 {
     [Export] public AnimationPlayer AnimationPlayer;

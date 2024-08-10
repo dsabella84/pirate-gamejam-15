@@ -1,9 +1,5 @@
 ﻿using System.Linq;
 using Godot;
-using SunfallGame.Abstraction;
-using SunfallGame.Code;
-
-namespace SunfallGame.scenes.characters.player;
 
 public partial class PlayerInputController : Node
 {

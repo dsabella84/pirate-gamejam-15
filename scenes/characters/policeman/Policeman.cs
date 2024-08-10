@@ -1,7 +1,4 @@
 using Godot;
-using SunfallGame.Abstraction;
-using SunfallGame.Code;
-using SunfallGame.scenes.characters.player;
 
 public partial class Policeman : StaticBody2D, IInteractable
 {

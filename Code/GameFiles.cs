@@ -6,8 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Humanizer;
 
-namespace SunfallGame.Code;
-
 public static partial class GameFiles
 {
     public const string GAME_NAME = "Sunfall";

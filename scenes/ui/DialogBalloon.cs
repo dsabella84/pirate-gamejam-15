@@ -1,10 +1,7 @@
 using Godot;
-using System;
 using DialogueManagerRuntime;
 using Godot.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using SunfallGame.scenes.dialogue.portraits;
 
 public partial class DialogBalloon : CanvasLayer
 {    
