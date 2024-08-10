@@ -4,20 +4,16 @@ public partial class SoundPlayer : Node
 {
     public static SoundPlayer Instance { get; private set; }
 
-    [Export]
-    private Node AudioPlayers;
+    [Export] private Node AudioPlayers;
 
-    [Export]
-    private Node AudioPlayers2D;
-    
-    [Export]
-    private AudioStreamPlayer PresentMusicPlayer;
-    
-    [Export]
-    private AudioStreamPlayer PastMusicPlayer;
-    
+    [Export] private Node AudioPlayers2D;
+
+    [Export] private AudioStreamPlayer PresentMusicPlayer;
+
+    [Export] private AudioStreamPlayer PastMusicPlayer;
+
     private int SfxPresentBus;
-    
+
     private int SfxPastBus;
 
     private float _musicPosition = 0f;
@@ -36,11 +32,11 @@ public partial class SoundPlayer : Node
         if (_fadeSpeed == 0) return;
 
         float increment = _fadeSpeed * (float)delta;
-	
+
         // Convert linear progress to decibels
         float presentProg = Mathf.Clamp(Mathf.DbToLinear(PresentMusicPlayer.VolumeDb) + increment, 0, 1);
         float presentDB = Mathf.Clamp(Mathf.LinearToDb(presentProg), -80, 0);
-        
+
         float pastProg = Mathf.Clamp(Mathf.DbToLinear(PastMusicPlayer.VolumeDb) - increment, 0, 1);
         float pastDB = Mathf.Clamp(Mathf.LinearToDb(pastProg), -80, 0);
 
@@ -51,7 +47,7 @@ public partial class SoundPlayer : Node
         AudioServer.SetBusVolumeDb(SfxPastBus, pastDB);
     }
 
-    public AudioStreamPlayer PlaySound(AudioStream sound, float volume =0)
+    public AudioStreamPlayer PlaySound(AudioStream sound, float volume = 0)
     {
         foreach (AudioStreamPlayer audioPlayer in AudioPlayers.GetChildren())
         {
@@ -68,7 +64,7 @@ public partial class SoundPlayer : Node
         return null;
     }
 
-    public AudioStreamPlayer2D PlaySound2D(AudioStream sound, Vector2 pos, float volume =0)
+    public AudioStreamPlayer2D PlaySound2D(AudioStream sound, Vector2 pos, float volume = 0)
     {
         foreach (AudioStreamPlayer2D audioPlayer in AudioPlayers2D.GetChildren())
         {
@@ -88,9 +84,9 @@ public partial class SoundPlayer : Node
 
     public void PlayMusic(AudioStream presentTrack, AudioStream pastTrack)
     {
-        if (PresentMusicPlayer.Stream == presentTrack)  return;
-	
-	    SetTime(WorldState.Instance.InFuture);
+        if (PresentMusicPlayer.Stream == presentTrack) return;
+
+        SetTime(Game.Instance.LoadedSaveFile!.InFuture);
 
         PresentMusicPlayer.Stream = presentTrack;
         PastMusicPlayer.Stream = pastTrack;
@@ -124,15 +120,9 @@ public partial class SoundPlayer : Node
 
     public void StopAllSfx()
     {
-        foreach(AudioStreamPlayer player in AudioPlayers.GetChildren())
-        {
-            ResetSfxPlayer(player);
-        }
+        foreach (AudioStreamPlayer player in AudioPlayers.GetChildren()) { ResetSfxPlayer(player); }
 
-        foreach(AudioStreamPlayer2D player2D in AudioPlayers2D.GetChildren())  
-        {
-            ResetSfxPlayer(player2D);
-        }
+        foreach (AudioStreamPlayer2D player2D in AudioPlayers2D.GetChildren()) { ResetSfxPlayer(player2D); }
     }
 
     private void SetTime(bool inFuture, float fadeSeconds = 0f)
@@ -151,20 +141,14 @@ public partial class SoundPlayer : Node
             return;
         }
 
-	    // Calculate fade speed per second, from 0db to -80db
+        // Calculate fade speed per second, from 0db to -80db
         _fadeSpeed = (inFuture ? 1.0f : -1.0f) / fadeSeconds;
     }
-    
+
     private void SetTimeBus(AudioStreamPlayer2D soundPlayer, bool inFuture)
     {
-        if (inFuture) 
-        {
-            soundPlayer.Bus = "SFX Present";
-        }
-        else
-        {
-            soundPlayer.Bus = "SFX Past";
-        }
+        if (inFuture) { soundPlayer.Bus = "SFX Present"; }
+        else { soundPlayer.Bus = "SFX Past"; }
     }
 
     private void ResetSfxPlayer(Node sfxPlayerNode)
@@ -174,11 +158,8 @@ public partial class SoundPlayer : Node
             sfxPlayer.Stop();
             sfxPlayer.Bus = "SFX";
             sfxPlayer.PitchScale = 1.0f;
-        
-            if (sfxPlayerNode is AudioStreamPlayer2D sfxPlayer2D)
-            {
-                sfxPlayer2D.MaxDistance = 2000;
-            }
+
+            if (sfxPlayerNode is AudioStreamPlayer2D sfxPlayer2D) { sfxPlayer2D.MaxDistance = 2000; }
         }
     }
 }

@@ -51,7 +51,7 @@ public partial class SceneTransitionVisual : CanvasLayer
     {
         if (length == Mathf.Inf) length = AnimationLength;
         
-        ColorRect.Color = (WorldState.Instance.InFuture) ? Colors.Black : Colors.White;
+        ColorRect.Color = (PlayerData.Current!.InFuture) ? Colors.Black : Colors.White;
         _animationLength = length;
         _time = 0;
         Visible = true;

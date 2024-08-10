@@ -8,30 +8,30 @@ public partial class LevelBase : Node2D
 
     #region Autospawn configuration
 
-    [ExportGroup("Autospawn"), Export] public bool AutospawnEnabled { get; set; } = true;
-    [ExportGroup("Autospawn"), Export] public SpawnPoint? AutospawnSpawnPoint { get; set; }
+    [Export] public bool AutospawnEnabled { get; set; } = true;
+    [Export] public SpawnPoint? AutospawnSpawnPoint { get; set; }
 
     #endregion
 
     #region "Past" configuration
 
-    [ExportGroup("\"Past\" configuration"), Export] public Color BackgroundPast { get; set; }
-    [ExportGroup("\"Past\" configuration"), Export] public Node2D? GroupPast { get; set; }
-    [ExportGroup("\"Past\" configuration"), Export] public AudioStream? MusicPast { get; set; }
+    [Export] public Color BackgroundPast { get; set; }
+    [Export] public Node2D? GroupPast { get; set; }
+    [Export] public AudioStream? MusicPast { get; set; }
 
     #endregion
 
     #region "Future" configuration
 
-    [ExportGroup("\"Future\" configuration"), Export] public Color BackgroundFuture { get; set; }
-    [ExportGroup("\"Future\" configuration"), Export] public Node2D? GroupFuture { get; set; }
-    [ExportGroup("\"Future\" configuration"), Export] public AudioStream? MusicFuture { get; set; }
+    [Export] public Color BackgroundFuture { get; set; }
+    [Export] public Node2D? GroupFuture { get; set; }
+    [Export] public AudioStream? MusicFuture { get; set; }
 
     #endregion
 
     #region "Shared" configuration
 
-    [ExportGroup("\"Shared\" configuration"), Export] public Node2D? GroupShared { get; set; }
+    [Export] public Node2D? GroupShared { get; set; }
 
     #endregion
 
@@ -42,7 +42,7 @@ public partial class LevelBase : Node2D
     {
         _playerPacked ??= GD.Load<PackedScene>("res://scenes/characters/player/Player.tscn");
 
-        if (AutospawnEnabled && Game.AutospawnEnabledGlobal)
+        if (AutospawnEnabled && Game.Instance.PlayerInstance == null)
         {
             SpawnPoint spawnPoint = AutospawnSpawnPoint ?? throw new InvalidOperationException("Autospawn spawn point is not set");
             SpawnPlayerAtSpawnPoint(spawnPoint);
@@ -50,7 +50,7 @@ public partial class LevelBase : Node2D
 
         // todo: music
 
-        SwitchNodeGroups(Game.IsWorldInFuture);
+        SwitchNodeGroups(PlayerData.Current!.InFuture);
     }
 
     public void SpawnPlayerAtSpawnPoint(int spawnPointId)
@@ -64,7 +64,7 @@ public partial class LevelBase : Node2D
         var position = spawnPoint.GlobalPosition;
         var direction = spawnPoint.FacingDirection;
 
-        Game.Player?.QueueFree();
+        Game.Instance.PlayerInstance?.QueueFree();
         Player = _playerPacked!.Instantiate<Player>();
 
         Player.GlobalPosition = position;

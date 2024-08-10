@@ -14,9 +14,9 @@ public partial class Policeman : StaticBody2D
     {
         if (initiator is not Player) return;
 
-        if (Game.PlayerData.NewspaperPickedUp)
+        if (PlayerData.Current!.NewspaperPickedUp)
         {
-            if (Game.PlayerData.PolicemanQuestActive)
+            if (PlayerData.Current.PolicemanQuestActive)
             {
                 // todo: play dialog "police_officer_first_time_after_newspaper"
             }
@@ -30,7 +30,7 @@ public partial class Policeman : StaticBody2D
         else
         {
             // todo: play dialog "police_officer"
-            Game.PlayerData.PolicemanQuestActive = true;
+            PlayerData.Current.PolicemanQuestActive = true;
         }
     }
 }

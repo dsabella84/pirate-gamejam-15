@@ -29,9 +29,8 @@ public partial class Player : CharacterBody2D
         CollisionCheckPast = GetNode<Area2D>("CollisionCheckPast");
         CollisionCheckFuture = GetNode<Area2D>("CollisionCheckFuture");
 
-        SetCollisionMasksAndLayers(Game.IsWorldInFuture);
-        Game.Player = this;
-        Game.AutospawnEnabledGlobal = false;
+        SetCollisionMasksAndLayers(PlayerData.Current!.InFuture);
+        Game.Instance.PlayerInstance = this;
     }
 
     public void EndInteraction()
@@ -69,13 +68,13 @@ public partial class Player : CharacterBody2D
 
     public void UseLantern()
     {
-        bool willBeFuture = !Game.IsWorldInFuture;
+        bool willBeFuture = !PlayerData.Current!.InFuture;
 
         Area2D collisionArea = willBeFuture ? CollisionCheckFuture : CollisionCheckPast;
         bool willCollide = collisionArea.GetOverlappingBodies().Count > 0;
 
         if (willCollide) PlayLanternFailure();
-        else Game.SwitchTime();
+        else Game.Instance.SwitchTime();
     }
 
     private void PlayLanternFailure()

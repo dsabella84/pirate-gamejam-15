@@ -2,11 +2,9 @@ using Godot;
 
 public partial class MainMenu : Control
 {
-    [Export]
-    public PackedScene FirstLevel;
+    [Export] public PackedScene FirstLevel;
 
-    [Export]
-    private Button startButton;
+    [Export] private Button startButton;
 
     public override void _Ready()
     {
@@ -20,8 +18,7 @@ public partial class MainMenu : Control
     }
 
     private void StartGame()
-    {        
-	    WorldState.Instance.Reset();
-	    //WorldState.transit_player_to_scene(first_level, 0, Vector2.DOWN)
+    {
+        //WorldState.transit_player_to_scene(first_level, 0, Vector2.DOWN)
     }
 }
