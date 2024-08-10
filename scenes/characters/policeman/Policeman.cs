@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Policeman : StaticBody2D, IInteractable
+public partial class Policeman : StaticBody2D
 {
     private Resource _dialogueResource = null!;
 
@@ -10,10 +10,9 @@ public partial class Policeman : StaticBody2D, IInteractable
         _dialogueResource = GD.Load("res://scenes/dialogue/PoliceOfficer.dialogue");
     }
 
-    /// <inheritdoc />
-    public void StartInteraction(Node2D initiator)
+    private void OnInteraction(Node2D initiator)
     {
-        if (initiator is not Player player) return;
+        if (initiator is not Player) return;
 
         if (Game.PlayerData.NewspaperPickedUp)
         {
@@ -34,7 +33,4 @@ public partial class Policeman : StaticBody2D, IInteractable
             Game.PlayerData.PolicemanQuestActive = true;
         }
     }
-
-    /// <inheritdoc />
-    public void EndInteraction(Node2D initiator) { }
 }

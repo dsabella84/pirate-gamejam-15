@@ -17,7 +17,7 @@ public partial class Player : CharacterBody2D
     public Area2D InteractionArea { get; private set; } = null!;
     public Area2D CollisionCheckPast { get; private set; } = null!;
     public Area2D CollisionCheckFuture { get; private set; } = null!;
-    public IInteractable? CurrentInteractionTarget { get; set; }
+    public Interactable? CurrentInteractionTarget { get; set; }
 
     /// <inheritdoc />
     public override void _Ready()
@@ -60,7 +60,7 @@ public partial class Player : CharacterBody2D
     {
         CurrentInteractionTarget = InteractionArea
             .GetOverlappingBodies()
-            .OfType<IInteractable>()
+            .OfType<Interactable>()
             .MinBy(body => body.GlobalPosition.DistanceTo(GlobalPosition));
 
         CurrentInteractionTarget?.StartInteraction(this);
