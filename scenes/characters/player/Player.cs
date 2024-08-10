@@ -31,6 +31,7 @@ public partial class Player : CharacterBody2D
 
         SetCollisionMasksAndLayers(Game.IsWorldInFuture);
         Game.Player = this;
+        Game.AutospawnEnabledGlobal = false;
     }
 
     public void EndInteraction()

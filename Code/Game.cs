@@ -7,7 +7,8 @@ public static class Game
 
     public static GameSettings Settings { get; set; } = new();
     public static PlayerData PlayerData => _playerData ?? throw new InvalidOperationException("Player data is not set");
-
+    public static bool AutospawnEnabledGlobal { get; set; }
+    
     public static bool IsWorldInFuture { get => _inFuture; set => SetTime(value); }
 
     public static Player? Player { get; set; }
