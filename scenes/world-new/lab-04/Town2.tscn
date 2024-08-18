@@ -249,10 +249,10 @@ shape = SubResource("RectangleShape2D_vlpjh")
 position = Vector2(-164, -93)
 shape = SubResource("RectangleShape2D_vlpjh")
 
-[node name="PartygoersHouse2" parent="Past" instance=ExtResource("14_44rt5")]
+[node name="PartygoersHouse2" parent="Past" node_paths=PackedStringArray("canvas_layer") instance=ExtResource("14_44rt5")]
 position = Vector2(112, -32)
 collision_layer = 1
-canvas_layer_path = NodePath("../../CanvasLayer")
+canvas_layer = NodePath("../../CanvasLayer")
 
 [node name="Interactable" parent="Past/PartygoersHouse2" index="2"]
 visible = false
@@ -343,11 +343,11 @@ texture = ExtResource("26_8sihm")
 [node name="Newspaper" parent="Future" instance=ExtResource("11_pkhvc")]
 position = Vector2(178, -11)
 
-[node name="PartygoersHouse" parent="Future" instance=ExtResource("14_44rt5")]
+[node name="PartygoersHouse" parent="Future" node_paths=PackedStringArray("canvas_layer") instance=ExtResource("14_44rt5")]
 position = Vector2(112, -32)
 collision_layer = 2
 collision_mask = 2
-canvas_layer_path = NodePath("../../CanvasLayer")
+canvas_layer = NodePath("../../CanvasLayer")
 
 [node name="Sprite2D" parent="Future/PartygoersHouse" index="0"]
 texture = ExtResource("25_cgy4o")
