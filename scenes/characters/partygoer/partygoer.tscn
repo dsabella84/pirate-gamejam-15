@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cynvv44m3x8ss"]
+[gd_scene load_steps=8 format=3 uid="uid://cynvv44m3x8ss"]
 
-[ext_resource type="Script" path="res://scenes/characters/partygoer/partygoer.gd" id="1_1qbt1"]
+[ext_resource type="Script" path="res://scenes/characters/partygoer/Partygoer.cs" id="1_y5oda"]
 [ext_resource type="PackedScene" uid="uid://d33p3q0t5n6wp" path="res://scenes/tools/Interactable.tscn" id="1_yx6om"]
 [ext_resource type="Texture2D" uid="uid://c7m7mn4nx8qac" path="res://assets/sprites/partygoer/Partygoer_spritesheet.png" id="2_pbpwp"]
 
@@ -45,11 +45,8 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ib4ll"]
 size = Vector2(23.5, 12)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xdybj"]
-radius = 22.8
-
 [node name="Partygoer" type="StaticBody2D"]
-script = ExtResource("1_1qbt1")
+script = ExtResource("1_y5oda")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-5, -20)
@@ -69,6 +66,5 @@ shape = SubResource("RectangleShape2D_ib4ll")
 
 [node name="Interactable" parent="." instance=ExtResource("1_yx6om")]
 position = Vector2(0, -2)
-shape = SubResource("CircleShape2D_xdybj")
 
-[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
+[connection signal="InteractionStarted" from="Interactable" to="." method="_OnInteractableInteractionStarted"]

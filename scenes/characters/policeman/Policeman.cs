@@ -10,7 +10,7 @@ public partial class Policeman : StaticBody2D
         _dialogueResource = GD.Load("res://scenes/dialogue/PoliceOfficer.dialogue");
     }
 
-    private void OnInteraction(Node2D initiator)
+    private void OnInteractionStarted(Node2D initiator)
     {
         if (initiator is not Player) return;
 
@@ -27,10 +27,14 @@ public partial class Policeman : StaticBody2D
 
             QueueFree();
         }
-        else
+        else if (!PlayerData.Current.PolicemanQuestActive)
         {
             // todo: play dialog "police_officer"
             PlayerData.Current.PolicemanQuestActive = true;
+        }
+        else
+        {
+            // todo: some dialog to tell player to search for clues
         }
     }
 }

@@ -30,12 +30,15 @@ public partial class Player : CharacterBody2D
         CollisionCheckFuture = GetNode<Area2D>("CollisionCheckFuture");
 
         SetCollisionMasksAndLayers(PlayerData.Current!.InFuture);
+        SetFacingDirection(_facingDirection);
+
         Game.Instance.PlayerInstance = this;
     }
 
     public void EndInteraction()
     {
         CurrentInteractionTarget?.EndInteraction(this);
+        CurrentInteractionTarget = null;
     }
 
     public TimeSpan PlayLanternUsage()
@@ -59,7 +62,7 @@ public partial class Player : CharacterBody2D
     public void StartInteraction()
     {
         CurrentInteractionTarget = InteractionArea
-            .GetOverlappingBodies()
+            .GetOverlappingAreas()
             .OfType<Interactable>()
             .MinBy(body => body.GlobalPosition.DistanceTo(GlobalPosition));
 
@@ -85,7 +88,7 @@ public partial class Player : CharacterBody2D
     private void SetFacingDirection(Vector2 value)
     {
         _facingDirection = value;
-        if (value.LengthSquared() == 0) return;
+        if (value.LengthSquared() == 0 || !IsNodeReady()) return;
 
         AnimationTree.Set("parameters/idle/blend_position", value);
         AnimationTree.Set("parameters/walk/blend_position", value);

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://cs8qm7dcs1ot5"]
+
+[ext_resource type="Script" path="res://scenes/Test.cs" id="1_nq5l1"]
+[ext_resource type="PackedScene" uid="uid://cynvv44m3x8ss" path="res://scenes/characters/partygoer/partygoer.tscn" id="2_m6d8d"]
+[ext_resource type="PackedScene" uid="uid://3klxjhkbv73j" path="res://scenes/characters/policeman/Policeman.tscn" id="3_hkc2m"]
+[ext_resource type="PackedScene" uid="uid://c0bdaa1uhiriw" path="res://scenes/tools/SpawnPoint.tscn" id="4_5i2uh"]
+[ext_resource type="PackedScene" uid="uid://dmllerypcllhe" path="res://scenes/tools/SceneTransition.tscn" id="5_af185"]
+
+[node name="Test" type="Node2D" node_paths=PackedStringArray("AutospawnSpawnPoint")]
+y_sort_enabled = true
+script = ExtResource("1_nq5l1")
+AutospawnSpawnPoint = NodePath("SpawnPoint")
+
+[node name="Partygoer" parent="." instance=ExtResource("2_m6d8d")]
+position = Vector2(246, 42)
+
+[node name="Policeman" parent="." instance=ExtResource("3_hkc2m")]
+position = Vector2(324, 169)
+
+[node name="SpawnPoint" parent="." instance=ExtResource("4_5i2uh")]
+position = Vector2(184, 170)
+FacingDirection = 3
+
+[node name="SceneTransition" parent="." instance=ExtResource("5_af185")]
+position = Vector2(444, 112)
+NextLevelPath = "res://scenes/world-new/lab-01/LabExterior.tscn"

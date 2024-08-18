@@ -10,14 +10,30 @@ public partial class Game : Node
 
     public static Game Instance { get; private set; } = null!;
 
-    public PlayerData? LoadedSaveFile { get; private set; }
+    [Export] public float LevelTransitionDurationSeconds { get; set; } = 2f;
+    [Export] public float LanternTransitionDurationSeconds { get; set; } = 1f;
+
+    public TimeSpan LevelTransitionDuration
+    {
+        get => TimeSpan.FromSeconds(LevelTransitionDurationSeconds);
+        set => LevelTransitionDurationSeconds = (float)value.TotalSeconds;
+    }
+
+    public TimeSpan LanternTransitionDuration
+    {
+        get => TimeSpan.FromSeconds(LanternTransitionDurationSeconds);
+        set => LanternTransitionDurationSeconds = (float)value.TotalSeconds;
+    }
+
+    public PlayerData? LoadedSaveFile { get; private set; } = PlayerData.Debug;
     public LevelBase? CurrentLevel { get; private set; }
     public Player? PlayerInstance { get; set; }
+    public bool MovementDisabled { get; set; }
 
     /// <inheritdoc />
     public override void _Notification(int what)
     {
-        if (what == NotificationWMCloseRequest || (what == NotificationWMGoBackRequest && !(LoadedSaveFile != null))) { _ = ExitGameAsync(false); }
+        if (what == NotificationWMCloseRequest || (what == NotificationWMGoBackRequest && LoadedSaveFile == null)) { _ = ExitGameAsync(false); }
     }
 
     /// <inheritdoc />
@@ -70,16 +86,53 @@ public partial class Game : Node
 
     private void UnloadMainMenu()
     {
-        throw new NotImplementedException();
+        // TODO
     }
 
     private void LoadMainMenu()
     {
-        throw new NotImplementedException();
+        // TODO
     }
 
     public void SwitchTime()
     {
-        throw new NotImplementedException();
+        // TODO: fade-out
+
+        // TODO: fade-in
+    }
+
+    public async Task TransitToLevelAsync(LevelBase nextLevel, int spawnId)
+    {
+        MovementDisabled = true;
+
+        bool inFuture = PlayerData.Current?.InFuture ?? true;
+
+        Color fromColor = SelectColorFromLevel(inFuture, CurrentLevel);
+        Color toColor = SelectColorFromLevel(inFuture, nextLevel);
+        Color middleColor = fromColor.Lerp(toColor, 0.5f);
+        TimeSpan halfDuration = LevelTransitionDuration / 2;
+
+        if (CurrentLevel != null)
+        {
+            await CurrentLevel.FadeToColorAsync(middleColor, true, halfDuration);
+            CurrentLevel.QueueFree();
+        }
+
+        nextLevel.SpawnPlayerAtSpawnPoint(spawnId);
+        nextLevel.SetFadeColorInstantly(middleColor);
+
+        Callable.From(() => GetTree().Root.AddChild(nextLevel)).CallDeferred();
+        await nextLevel.FadeToColorAsync(toColor, true, halfDuration);
+
+        MovementDisabled = false;
+
+        return;
+
+        static Color SelectColorFromLevel(bool inFut, LevelBase? levelBase)
+        {
+            if (inFut) return levelBase?.FutureBackgroundColor ?? Colors.White;
+
+            return levelBase?.PastBackgroundColor ?? Colors.Black;
+        }
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://3klxjhkbv73j"]
+[gd_scene load_steps=8 format=3 uid="uid://3klxjhkbv73j"]
 
 [ext_resource type="Texture2D" uid="uid://dkrh4tw607p15" path="res://assets/sprites/cop/Cop-spritesheet.png" id="1_738ti"]
 [ext_resource type="Script" path="res://scenes/characters/policeman/Policeman.cs" id="1_oorls"]
@@ -45,9 +45,6 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2tvpf"]
 size = Vector2(50, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_umojq"]
-size = Vector2(40, 40)
-
 [node name="Policeman" type="StaticBody2D"]
 collision_mask = 0
 script = ExtResource("1_oorls")
@@ -69,6 +66,6 @@ speed_scale = 0.6
 shape = SubResource("RectangleShape2D_2tvpf")
 
 [node name="Interactable" parent="." instance=ExtResource("2_x3afy")]
-shape = SubResource("RectangleShape2D_umojq")
+monitoring = false
 
-[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
+[connection signal="InteractionStarted" from="Interactable" to="." method="OnInteractionStarted"]

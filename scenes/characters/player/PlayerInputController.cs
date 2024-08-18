@@ -13,9 +13,9 @@ public partial class PlayerInputController : Node
     private AnimationTree? _animationTreeCached;
     private bool _sprinting;
 
-    [Export] public bool Enabled { get; set; } = true;
-    [Export] public float WalkingSpeed { get; set; } = 80;
-    [Export] public float SprintingSpeed { get; set; } = 120;
+    [Export] public bool Disabled { get; set; }
+    [Export] public float WalkingSpeed { get; set; } = 100;
+    [Export] public float SprintingSpeed { get; set; } = 140;
     [Export] public float PushSpeed { get; set; } = 20;
     [Export] public float InputDeadZone { get; set; } = 0.12f;
 
@@ -60,7 +60,7 @@ public partial class PlayerInputController : Node
     /// <inheritdoc />
     public override void _UnhandledInput(InputEvent inputEvent)
     {
-        if (!Enabled) return;
+        if (Disabled || Game.Instance.MovementDisabled) return;
 
         bool handled = ProcessMovementInputAction(inputEvent)
                     || ProcessSprintInputAction(inputEvent)

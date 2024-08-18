@@ -36,6 +36,7 @@ public class PlayerData
     public bool InFuture { get; set; } = true;
     public bool NewspaperPickedUp { get; set; }
     public bool PolicemanQuestActive { get; set; }
+    public bool PartygoerPasswordSeen { get; set; }
 
     #endregion
 }
