@@ -18,4 +18,5 @@ func close():
 
 func _on_interactable_interacted(_initiator:Node):
 	if WorldState.in_future: return;
+	if WorldState.sewage_valve_off: return;
 	close()
