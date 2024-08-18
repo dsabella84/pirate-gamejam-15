@@ -92,17 +92,19 @@ grow_vertical = 0
 
 [node name="NPC" type="Control" parent="Balloon/Portraits"]
 anchors_preset = 0
-offset_left = 82.0
+offset_left = 22.0
 offset_top = 468.0
-offset_right = 122.0
+offset_right = 62.0
 offset_bottom = 508.0
+scale = Vector2(2, 2)
 
 [node name="Player" type="Control" parent="Balloon/Portraits"]
 anchors_preset = 0
-offset_left = 831.0
+offset_left = 807.0
 offset_top = 467.0
-offset_right = 871.0
+offset_right = 847.0
 offset_bottom = 507.0
+scale = Vector2(2, 2)
 
 [node name="Panel" type="Panel" parent="Balloon"]
 clip_children = 2
