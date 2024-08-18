@@ -111,7 +111,7 @@ texture = ExtResource("4_6k14p")
 
 [node name="Waterfall-spritesheet" type="Sprite2D" parent="Past"]
 z_index = -1
-position = Vector2(51, -34)
+position = Vector2(49, -34)
 texture = ExtResource("5_msau8")
 vframes = 4
 
@@ -157,7 +157,6 @@ autoplay = "waterfall"
 speed_scale = 0.6
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Future"]
-visible = false
 collision_layer = 2
 collision_mask = 0
 
