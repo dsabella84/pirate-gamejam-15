@@ -186,7 +186,7 @@ position = Vector2(184, -17)
 
 [node name="NoticeStarShard" type="Area2D" parent="Future"]
 collision_layer = 0
-collision_mask = 3
+collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Future/NoticeStarShard"]
