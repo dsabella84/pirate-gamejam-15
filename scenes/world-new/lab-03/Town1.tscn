@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b64fc5xhf17hr"]
+[gd_scene load_steps=32 format=3 uid="uid://b64fc5xhf17hr"]
 
 [ext_resource type="Script" path="res://scenes/tools/Level.gd" id="1_i7nla"]
 [ext_resource type="AudioStream" uid="uid://ynf4w4x7mamh" path="res://assets/music/town_past.ogg" id="2_v6wvg"]
@@ -21,13 +21,18 @@
 [ext_resource type="PackedScene" uid="uid://wh0h317a3ev3" path="res://scenes/world-new/lab-03/clubhouse-future.tscn" id="18_j4klg"]
 [ext_resource type="Texture2D" uid="uid://cgfkmqtjtxtv6" path="res://assets/sprites/bg/lab-03/Night/Club-7.png" id="18_nev2t"]
 [ext_resource type="PackedScene" uid="uid://pw8u738f3sd5" path="res://scenes/world-new/lab-03/StoneWallTopFuture.tscn" id="22_1cvme"]
+[ext_resource type="PackedScene" uid="uid://d33p3q0t5n6wp" path="res://scenes/tools/Interactable.tscn" id="22_8wx7d"]
 [ext_resource type="PackedScene" uid="uid://c6lqwkhdvmquy" path="res://scenes/world-new/lab-03/BenchPast.tscn" id="22_fy6ie"]
+[ext_resource type="Script" path="res://scenes/tools/PipeFuture.gd" id="23_7bkt4"]
 [ext_resource type="PackedScene" uid="uid://b1a6ko6421qib" path="res://scenes/world-new/lab-03/StoneWallGateFut.tscn" id="23_jq6qa"]
 [ext_resource type="PackedScene" uid="uid://d2chfj75m2djs" path="res://scenes/world-new/lab-03/PipePast.tscn" id="23_tolp2"]
 [ext_resource type="Texture2D" uid="uid://dynmyq8wl5vk5" path="res://assets/sprites/bg/lab-03/Night/Club-9.png" id="24_ufxve"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cgwbj"]
 load_path = "res://.godot/imported/Club-1.png-3a6c51e6813dd454fca2e46d4a008d38.ctex"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qlw4i"]
+radius = 30.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tcfae"]
 size = Vector2(22, 103)
@@ -136,6 +141,11 @@ position = Vector2(72, 117.5)
 [node name="Club-9" type="Sprite2D" parent="Future"]
 z_index = 1
 texture = ExtResource("24_ufxve")
+script = ExtResource("23_7bkt4")
+
+[node name="Interactable" parent="Future/Club-9" instance=ExtResource("22_8wx7d")]
+position = Vector2(199.613, 172.028)
+shape = SubResource("CircleShape2D_qlw4i")
 
 [node name="Walls" type="StaticBody2D" parent="Future"]
 collision_layer = 2
@@ -182,6 +192,8 @@ spawn_id = 8
 [node name="CollisionShape2D" parent="SceneTransition2" index="0"]
 position = Vector2(77, -46)
 shape = SubResource("RectangleShape2D_t4dwf")
+
+[connection signal="interacted" from="Future/Club-9/Interactable" to="Future/Club-9" method="_on_interactable_interacted"]
 
 [editable path="SceneTransition"]
 [editable path="SceneTransition2"]
