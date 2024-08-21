@@ -110,6 +110,29 @@ func transit_player_to_scene(destination: PackedScene, spawn_id: int, player_dir
 	disable_movement = false
 	DialogState.disabled = false
 
+func transition_to_cut_scene(cut_scene: PackedScene):
+	disable_movement = true
+	DialogState.disabled = true
+	scene_transition_visual.start()
+	
+	var comic_cut_scene = cut_scene.instantiate() as ComicCutScene;
+	
+	await scene_transition_visual.halfway
+	
+	var current = get_current_level();
+	if current:
+		save_level_state(current)
+		current.visible = false;
+		current.queue_free();
+	SoundPlayer.stop_all_sfx()
+	
+	get_tree().root.call_deferred("add_child", comic_cut_scene);
+	
+	await scene_transition_visual.finished
+	
+	disable_movement = false
+	DialogState.disabled = false
+
 func get_current_level() -> Level:
 	var children = get_tree().root.get_children();
 	for child in children:

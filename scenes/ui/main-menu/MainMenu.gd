@@ -1,13 +1,13 @@
 extends Control
 
-@export var first_level: PackedScene;
+@export var first_cut_scene: PackedScene;
 
 func _ready():
 	%"Start".grab_focus()
 
 func start_game():
 	WorldState.reset()
-	WorldState.transit_player_to_scene(first_level, 0, Vector2.DOWN)
+	WorldState.transition_to_cut_scene(first_cut_scene)
 
 func _on_start_pressed():
 	start_game()
