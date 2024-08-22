@@ -1,13 +1,9 @@
 extends StaticBody2D
 
 signal interacted(initiator)
+
 @onready var interactable = $Interactable
-
-@export var canvas_layer_path: NodePath
-
-@onready var canvas_layer = get_node(canvas_layer_path)
-
-var overlay_visible = false
+@export var canvas_layer: CanvasLayer;
 
 func _ready():
 	if canvas_layer:
@@ -27,16 +23,17 @@ func _on_interactable_interacted(initiator):
 func show_overlay():
 	if canvas_layer:
 		canvas_layer.visible = true
-		overlay_visible = true
 
 func _input(event):
-	if overlay_visible and event is InputEventKey and event.pressed:
+	if canvas_layer && canvas_layer.visible && _is_movement_action(event):
 		hide_overlay()
 
 func hide_overlay():
-	if canvas_layer:
 		canvas_layer.visible = false
-		overlay_visible = false
+
+func _is_movement_action(event: InputEvent) -> bool: 
+	var action_names = ["move_up", "move_down", "move_left", "move_right"];
+	return action_names.any(func(_n): return event.get_action_strength(_n) > 0);
 
 func _on_wrong_side_interacted(initiator):
 	if initiator is Player:
