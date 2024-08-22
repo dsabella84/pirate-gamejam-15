@@ -33,7 +33,7 @@ steps:
       script: |
         Write-Host "$(Agent.ToolsDirectory)"
         mkdir $(Build.SourcesDirectory)\build
-        C:\Development\Godot_v4.3-stable_win64.exe\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" $(Build.SourcesDirectory)\build --headless
+        C:\Development\Godot_v4.3-stable_win64.exe\Godot_v4.3-stable_win64_console.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" $(Build.SourcesDirectory)\build --headless
         
 
   # Copy build output files to artifact staging directory.
