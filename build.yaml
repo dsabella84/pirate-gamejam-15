@@ -16,6 +16,7 @@ steps:
   - task: PowerShell@2
     displayName: 'Download Godot'
     inputs:
+      targetType: 'inline'
       script: |
         wget https://downloads.tuxfamily.org/godotengine/$(godot_version)/Godot_v$(godot_version)-stable_osx.universal.zip -O $(Agent.TempDirectory)/godot.zip
   
