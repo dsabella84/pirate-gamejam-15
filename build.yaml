@@ -4,7 +4,7 @@ trigger:
       - '*'
 
 pool:
-  vmImage: 'windows-latest'
+  name: SelfHosted-Unity
 
 variables:
   - name: godot_version
@@ -13,18 +13,18 @@ variables:
 steps:
   - checkout: self
 
-  - task: PowerShell@2
-    displayName: 'Download Godot'
-    inputs:
-      targetType: 'inline'
-      script: |
-        Invoke-WebRequest https://github.com/godotengine/godot-builds/releases/download/4.3-stable/Godot_v4.3-stable_win64.exe.zip -OutFile $(Agent.TempDirectory)/godot.zip
+  # - task: PowerShell@2
+  #   displayName: 'Download Godot'
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: |
+  #       Invoke-WebRequest https://github.com/godotengine/godot-builds/releases/download/4.3-stable/Godot_v4.3-stable_win64.exe.zip -OutFile $(Agent.TempDirectory)/godot.zip
 
-  - task: ExtractFiles@1
-    displayName: "Extract Godot executable files"
-    inputs:
-      archiveFilePatterns: '$(Agent.TempDirectory)/godot.zip'
-      destinationFolder: '$(Agent.ToolsDirectory)/godot'
+  # - task: ExtractFiles@1
+  #   displayName: "Extract Godot executable files"
+  #   inputs:
+  #     archiveFilePatterns: '$(Agent.TempDirectory)/godot.zip'
+  #     destinationFolder: '$(Agent.ToolsDirectory)/godot'
 
   - task: PowerShell@2
     displayName: 'Build Project Godot'
@@ -32,7 +32,7 @@ steps:
       targetType: 'inline'
       script: |
         Write-Host "$(Agent.ToolsDirectory)"
-        $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" .\build
+        C:\Development\Godot_v4.3-stable_win64.exe\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" .\build
         Get-ChildItem -Path "$(Build.SourcesDirectory)\build\*.*" -Recurse -Force
 
   # Copy build output files to artifact staging directory.
