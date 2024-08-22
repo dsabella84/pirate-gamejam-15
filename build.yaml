@@ -32,5 +32,5 @@ steps:
       targetType: 'inline'
       script: |
         Write-Host "$(Agent.ToolsDirectory)"
-        Get-ChildItem -Path "$(Agent.ToolsDirectory)\*.*" -Recurse -Force
+        Get-ChildItem -Path "$(Agent.ToolsDirectory)\godot\*.*" -Recurse -Force
         
