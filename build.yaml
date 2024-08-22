@@ -32,5 +32,5 @@ steps:
       targetType: 'inline'
       script: |
         Write-Host "$(Agent.ToolsDirectory)"
-        Get-ChildItem -Path "$(Agent.ToolsDirectory)\godot\*.*" -Recurse -Force
+        Get-ChildItem -Path "$(Build.SourcesDirectory)\*.*" 
         $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export "Windows Desktop" .\build
