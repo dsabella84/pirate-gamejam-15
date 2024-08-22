@@ -33,6 +33,4 @@ steps:
       script: |
         Write-Host "$(Agent.ToolsDirectory)"
         Get-ChildItem -Path "$(Agent.ToolsDirectory)\godot\*.*" -Recurse -Force
-        $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path "$(Build.SourcesDirectory)\project.godot" --export "Windows Desktop" .\build
-
-        Get-ChildItem -Path "$(Build.SourcesDirectory)\*.*" -Recurse -Force
+        $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory)\project.godot --export "Windows Desktop" .\build
