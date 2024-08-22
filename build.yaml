@@ -25,3 +25,12 @@ steps:
     inputs:
       archiveFilePatterns: '$(Agent.TempDirectory)/godot.zip'
       destinationFolder: '$(Agent.ToolsDirectory)'
+
+  - task: PowerShell@2
+    displayName: 'Build Project Godot'
+    inputs:
+      targetType: 'inline'
+      script: |
+        Write-Host "$(Agent.ToolsDirectory)"
+        Get-ChildItem -Path "$(Agent.ToolsDirectory)\*.*" -Recurse -Force
+        
