@@ -32,8 +32,8 @@ steps:
       targetType: 'inline'
       script: |
         Write-Host "$(Agent.ToolsDirectory)"
-        Get-ChildItem -Path "$(Build.SourcesDirectory)\*.*" 
         $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" .\build
+        Get-ChildItem -Path "$(Build.SourcesDirectory)\build\*.*" -Recurse -Force
 
   # Copy build output files to artifact staging directory.
   - task: CopyFiles@2
