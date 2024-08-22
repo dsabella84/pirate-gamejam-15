@@ -24,7 +24,7 @@ steps:
     displayName: "Extract Godot executable files"
     inputs:
       archiveFilePatterns: '$(Agent.TempDirectory)/godot.zip'
-      destinationFolder: '$(Agent.ToolsDirectory)'
+      destinationFolder: '$(Agent.ToolsDirectory)/godot'
 
   - task: PowerShell@2
     displayName: 'Build Project Godot'
