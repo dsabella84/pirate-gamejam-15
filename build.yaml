@@ -1,0 +1,27 @@
+trigger:
+  branches: 
+    include: 
+      - '*'
+
+pool:
+  vmImage: 'macOS-10.15'
+
+variables:
+  - name: godot_version
+    value: '4.3.stable'
+
+steps:
+  - checkout: self
+
+  - task: CmdLine@2
+    displayName: 'Download Godot'
+    inputs:
+      script: |
+        wget https://downloads.tuxfamily.org/godotengine/$(godot_version)/Godot_v$(godot_version)-stable_osx.universal.zip -O $(Agent.TempDirectory)/godot.zip
+  
+
+  - task: ExtractFiles@1
+    displayName: "Extract Godot executable files"
+    inputs:
+      archiveFilePatterns: '$(Agent.TempDirectory)/godot.zip'
+      destinationFolder: '$(Agent.ToolsDirectory)'
