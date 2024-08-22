@@ -8,7 +8,7 @@ pool:
 
 variables:
   - name: godot_version
-    value: '4.3.stable'
+    value: '4.3'
 
 steps:
   - checkout: self
@@ -18,8 +18,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        wget https://downloads.tuxfamily.org/godotengine/$(godot_version)/Godot_v$(godot_version)-stable_osx.universal.zip -O $(Agent.TempDirectory)/godot.zip
-  
+        Invoke-WebRequest https://github.com/godotengine/godot-builds/releases/download/Godot_v$(godot_version)-stable_win64.exe.zip -OutFile $(Agent.TempDirectory)/godot.zip
 
   - task: ExtractFiles@1
     displayName: "Extract Godot executable files"
