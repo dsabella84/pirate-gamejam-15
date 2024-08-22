@@ -13,7 +13,7 @@ variables:
 steps:
   - checkout: self
 
-  - task: CmdLine@2
+  - task: PowerShell@2
     displayName: 'Download Godot'
     inputs:
       script: |
