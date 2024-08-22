@@ -34,3 +34,36 @@ steps:
         Write-Host "$(Agent.ToolsDirectory)"
         Get-ChildItem -Path "$(Build.SourcesDirectory)\*.*" 
         $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" .\build
+
+  # Copy build output files to artifact staging directory.
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: .\build
+      Contents: '**'
+      TargetFolder: $(Build.ArtifactStagingDirectory)
+      CleanTargetFolder: true
+      OverWrite: true
+
+  # Archive files v2
+  # Compress files into .7z, .tar.gz, or .zip.
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)' # string. Required. Root folder or file to archive. Default: $(Build.BinariesDirectory).
+      includeRootFolder: true # boolean. Required. Prepend root folder name to archive paths. Default: true.
+    # Archive
+      archiveType: 'zip' # 'zip' | '7z' | 'tar' | 'wim'. Required. Archive type. Default: zip.
+      #sevenZipCompression: 'normal' # 'ultra' | 'maximum' | 'normal' | 'fast' | 'fastest' | 'none'. Optional. Use when archiveType = 7z. 7z compression. Default: normal.
+      #tarCompression: 'gz' # 'gz' | 'bz2' | 'xz' | 'none'. Optional. Use when archiveType = tar. Tar compression. Default: gz.
+      archiveFile: '$(Build.ArtifactStagingDirectory)/Sunfall.zip' # string. Required. Archive file to create. Default: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip.
+      replaceExistingArchive: true # boolean. Required. Replace existing archive. Default: true.
+      #verbose: false # boolean. Force verbose output. Default: false.
+      #quiet: false # boolean. Force quiet output. Default: false.
+
+
+  # Finally publish all items in artifact staging to the Azure Pipelines
+  # artifact storage. They will be available for sharing and/or further processing there.
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)
+      ArtifactName: drop
+      publishLocation: Container
