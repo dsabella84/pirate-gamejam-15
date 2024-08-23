@@ -47,7 +47,7 @@ steps:
       script: |
         Write-Host "$(Agent.ToolsDirectory)"
         mkdir $(Build.SourcesDirectory)\build
-        $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" $(Build.SourcesDirectory)\build --headless -v --audio-driver "Dummy"
+        $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" $(Build.SourcesDirectory)\build --headless -v -e --quit --audio-driver "Dummy"
         Write-Host "$(Build.SourcesDirectory)"
 
   # Copy build output files to artifact staging directory.
