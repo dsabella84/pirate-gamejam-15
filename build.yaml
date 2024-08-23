@@ -41,14 +41,20 @@ steps:
 
 
   - task: PowerShell@2
+    displayName: 'Import Project Godot'
+    inputs:
+      targetType: 'inline'
+      script: |
+        $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" $(Build.SourcesDirectory)\build\Sunfall.exe --headless -v -e --quit --import
+
+
+  - task: PowerShell@2
     displayName: 'Build Project Godot'
     inputs:
       targetType: 'inline'
       script: |
-        Write-Host "$(Agent.ToolsDirectory)"
         mkdir $(Build.SourcesDirectory)\build
         $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" $(Build.SourcesDirectory)\build\Sunfall.exe --headless -v -e --quit --audio-driver "Dummy"
-        Write-Host "$(Build.SourcesDirectory)"
 
   # Copy build output files to artifact staging directory.
   - task: CopyFiles@2
