@@ -31,7 +31,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        Invoke-WebRequest https://downloads.tuxfamily.org/godotengine/4.3-stable/Godot_v4.3-stable_export_templates.tpz -OutFile $(Agent.TempDirectory)/Godot_v4.3-stable_export_templates.tpz
+        Invoke-WebRequest https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_export_templates.tpz -OutFile $(Agent.TempDirectory)/Godot_v4.3-stable_export_templates.tpz
   
   - task: ExtractFiles@1
     displayName: "Extract Godot export templates"
