@@ -4,7 +4,7 @@ trigger:
       - '*'
 
 pool:
-   vmImage: 'windows-latest'
+  name: SelfHosted-Unity
 
 variables:
   - name: godot_version
