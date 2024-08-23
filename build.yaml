@@ -4,7 +4,7 @@ trigger:
       - '*'
 
 pool:
-  name: SelfHosted-Unity
+   vmImage: 'ubuntu-latest'
 
 variables:
   - name: godot_version
@@ -13,18 +13,32 @@ variables:
 steps:
   - checkout: self
 
-  # - task: PowerShell@2
-  #   displayName: 'Download Godot'
-  #   inputs:
-  #     targetType: 'inline'
-  #     script: |
-  #       Invoke-WebRequest https://github.com/godotengine/godot-builds/releases/download/4.3-stable/Godot_v4.3-stable_win64.exe.zip -OutFile $(Agent.TempDirectory)/godot.zip
+  - task: PowerShell@2
+    displayName: 'Download Godot'
+    inputs:
+      targetType: 'inline'
+      script: |
+        Invoke-WebRequest https://github.com/godotengine/godot-builds/releases/download/4.3-stable/Godot_v4.3-stable_win64.exe.zip -OutFile $(Agent.TempDirectory)/godot.zip
 
-  # - task: ExtractFiles@1
-  #   displayName: "Extract Godot executable files"
-  #   inputs:
-  #     archiveFilePatterns: '$(Agent.TempDirectory)/godot.zip'
-  #     destinationFolder: '$(Agent.ToolsDirectory)/godot'
+  - task: ExtractFiles@1
+    displayName: "Extract Godot executable files"
+    inputs:
+      archiveFilePatterns: '$(Agent.TempDirectory)/godot.zip'
+      destinationFolder: '$(Agent.ToolsDirectory)/godot'
+
+  - task: PowerShell@2
+    displayName: 'Download Godot Templates'
+    inputs:
+      targetType: 'inline'
+      script: |
+        Invoke-WebRequest https://downloads.tuxfamily.org/godotengine/4.3-stable/Godot_v4.3-stable_export_templates.tpz -OutFile $(Agent.TempDirectory)/Godot_v4.3-stable_export_templates.tpz
+  
+  - task: ExtractFiles@1
+    displayName: "Extract Godot export templates"
+    inputs:
+      archiveFilePatterns: '$(Agent.TempDirectory)/Godot_v4.3-stable_export_templates.tpz'
+      destinationFolder: '$(Agent.ToolsDirectory)/godot/export_templates/4.3-stable'
+
 
   - task: PowerShell@2
     displayName: 'Build Project Godot'
@@ -33,7 +47,7 @@ steps:
       script: |
         Write-Host "$(Agent.ToolsDirectory)"
         mkdir $(Build.SourcesDirectory)\build
-        C:\Development\Godot_v4.3-stable_win64.exe\Godot_v4.3-stable_win64_console.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" $(Build.SourcesDirectory)\build --headless
+        $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" $(Build.SourcesDirectory)\build --no-window
         
 
   # Copy build output files to artifact staging directory.
