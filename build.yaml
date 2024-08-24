@@ -33,11 +33,11 @@ steps:
       script: |
         Invoke-WebRequest https://downloads.tuxfamily.org/godotengine/4.3/Godot_v4.3-stable_export_templates.tpz -OutFile $(Agent.TempDirectory)/Godot_v4.3-stable_export_templates.tpz
   
-  - task: ExtractFiles@1
-    displayName: "Extract Godot export templates"
-    inputs:
-      archiveFilePatterns: '$(Agent.TempDirectory)/Godot_v4.3-stable_export_templates.tpz'
-      destinationFolder: '$(Agent.ToolsDirectory)/godot/export_templates/4.3-stable'
+  # - task: ExtractFiles@1
+  #   displayName: "Extract Godot export templates"
+  #   inputs:
+  #     archiveFilePatterns: '$(Agent.TempDirectory)/Godot_v4.3-stable_export_templates.tpz'
+  #     destinationFolder: '$(Agent.ToolsDirectory)/godot/export_templates/4.3-stable'
 
 
   - task: PowerShell@2
