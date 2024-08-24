@@ -45,7 +45,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64_console.exe --path $(Build.SourcesDirectory) --headless -v --import
+        $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64_console.exe --path $(Build.SourcesDirectory) --headless --verbose --editor --quit
 
 
   - task: PowerShell@2
