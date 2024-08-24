@@ -45,7 +45,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --export-release "Windows Desktop" $(Build.SourcesDirectory)\build\Sunfall.exe --headless -v -e --quit --import
+        $(Agent.ToolsDirectory)\godot\Godot_v4.3-stable_win64.exe --path $(Build.SourcesDirectory) --headless -v -e --quit --import
 
 
   - task: PowerShell@2
