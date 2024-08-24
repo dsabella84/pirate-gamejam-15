@@ -14,3 +14,9 @@
      repository: $(imageName)
      command: build
      Dockerfile: ./DOCKERFILE
+
+  - script: godot --headless --verbose --editor --quit
+
+  - script: mkdir -v -p build/windows
+
+  - script: godot --headless --verbose --export-release "Windows Desktop" ../build/windows/Sunfall.exe
