@@ -20,8 +20,8 @@
     docker mkdir -v -p build/windows
     docker godot --headless --verbose --export-release "Windows Desktop" ../build/windows/Sunfall.exe
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'    
+ - task: PublishBuildArtifacts@1
+   inputs:
+     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+     ArtifactName: 'drop'
+     publishLocation: 'Container'    
