@@ -5,7 +5,7 @@
    vmImage: 'ubuntu-latest' 
 
  variables:
-   imageName: 'barichello/godot-ci:4.0.2'
+   imageName: 'barichello/godot-ci'
 
  steps:
  - task: Docker@2
