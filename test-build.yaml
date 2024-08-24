@@ -13,4 +13,4 @@
    inputs:
      repository: $(imageName)
      command: build
-     Dockerfile: ./Dockerfile
+     Dockerfile: ./DOCKERFILE
